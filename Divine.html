@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GST 311 | Practice Questions</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;700;900&display=swap');
+        
+        body { font-family: 'Outfit', sans-serif; background-color: #0f172a; color: #f1f5f9; }
+
+        /* Elegant Emerald Pulse for login */
+        @keyframes emeraldGlow {
+            0%, 100% { border-color: #1e293b; box-shadow: 0 0 0px rgba(16, 185, 129, 0); }
+            50% { border-color: #10b981; box-shadow: 0 0 20px rgba(16, 185, 129, 0.3); }
+        }
+        .login-card { animation: emeraldGlow 4s infinite; border-width: 2px; }
+
+        /* Smooth Moving Banner - Emerald Gradient */
+        .marquee-bg {
+            background: linear-gradient(90deg, #064e3b, #10b981, #064e3b);
+            border-bottom: 2px solid #34d399;
+            overflow: hidden;
+            white-space: nowrap;
+            padding: 14px 0;
+        }
+        .marquee-text {
+            display: inline-block;
+            animation: scroll 30s linear infinite;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+        @keyframes scroll {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+
+        /* Option Buttons */
+        .opt-btn {
+            background: #1e293b;
+            border: 2px solid #334155;
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+        }
+        .opt-btn:hover { border-color: #10b981; transform: scale(1.02); }
+        .opt-active { background: #10b981 !important; border-color: #fff !important; color: #064e3b !important; font-weight: 900; }
+
+        /* Nav Grid Status */
+        .status-done { background-color: #10b981 !important; color: #fff !important; border-color: #059669 !important; }
+        .status-now { border-color: #fbbf24 !important; box-shadow: 0 0 10px #fbbf24; }
+
+        .hidden { display: none; }
+        .custom-scroll::-webkit-scrollbar { width: 5px; }
+        .custom-scroll::-webkit-scrollbar-thumb { background: #10b981; border-radius: 10px; }
+    </style>
+</head>
+<body class="flex flex-col min-h-screen">
+
+    <div class="marquee-bg sticky top-0 z-50 shadow-xl">
+        <div class="marquee-text uppercase">
+             GST 311 Exam starts April 15th, 2026. &nbsp;&nbsp;&nbsp;&nbsp; 
+             <a href="https://cbt.uniyo.edu.ng" target="_blank" class="underline decoration-2 font-black">Official CBT Link: cbt.uniyo.edu.ng</a> &nbsp;&nbsp;&nbsp;&nbsp; 
+             Questions? Email bsaviourokon@gmail.com
+        </div>
+    </div>
+
+    <div id="login-view" class="flex-grow flex items-center justify-center p-4">
+        <div class="bg-slate-900 p-10 rounded-[2rem] login-card max-w-md w-full text-center shadow-2xl">
+            <h1 class="text-4xl font-black text-emerald-500 mb-2">GST 311</h1>
+            <p class="text-slate-400 font-medium mb-8">Peace & Conflict Resolution Portal</p>
+            
+            <div class="space-y-4">
+                <input type="text" id="user-fullname" placeholder="Enter Full Name" class="w-full p-4 bg-slate-800 border border-slate-700 rounded-2xl focus:outline-none focus:border-emerald-500 text-white font-bold">
+                <input type="text" id="user-reg" placeholder="Registration Number" class="w-full p-4 bg-slate-800 border border-slate-700 rounded-2xl focus:outline-none focus:border-emerald-500 text-white font-bold">
+                <button onclick="startExam()" class="w-full bg-emerald-500 hover:bg-emerald-600 text-emerald-950 font-black py-4 rounded-2xl transition-all shadow-lg shadow-emerald-500/20 text-lg">
+                    LOG IN TO EXAM
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div id="exam-view" class="hidden flex-grow container mx-auto p-4 md:p-8">
+        <div class="mb-6 flex flex-col md:flex-row justify-between items-center bg-slate-900/50 p-6 rounded-3xl border border-slate-800">
+            <div>
+                <h2 class="text-2xl font-black text-white">Welcome, <span id="display-name" class="text-emerald-400 text-3xl">Student</span>!</h2>
+                <p class="text-slate-400 font-bold text-sm uppercase tracking-widest" id="display-reg"></p>
+            </div>
+            <div class="mt-4 md:mt-0 bg-slate-800 px-8 py-3 rounded-2xl border-2 border-emerald-500/30">
+                <span id="timer-clock" class="text-3xl font-black font-mono text-emerald-500">20:00</span>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+            <div class="lg:col-span-3">
+                <div class="bg-slate-900 rounded-[2.5rem] p-8 md:p-12 border border-slate-800 shadow-2xl min-h-[550px] flex flex-col justify-between">
+                    <div>
+                        <div class="mb-10">
+                            <span class="bg-emerald-500/10 text-emerald-500 px-4 py-2 rounded-full font-black text-sm uppercase tracking-tighter">Question <span id="q-number">1</span> of 50</span>
+                        </div>
+                        <h3 id="q-content" class="text-2xl md:text-3xl font-bold text-white leading-snug italic mb-12">...</h3>
+                        <div id="options-area" class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                            </div>
+                    </div>
+
+                    <div class="flex justify-between mt-16 pt-8 border-t border-slate-800">
+                        <button onclick="movePrev()" class="px-8 py-4 rounded-2xl bg-slate-800 hover:bg-slate-700 font-black transition">BACK</button>
+                        <button onclick="moveNext()" class="px-10 py-4 rounded-2xl bg-emerald-600 hover:bg-emerald-500 text-white font-black shadow-lg">NEXT QUESTION</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="lg:col-span-1">
+                <div class="bg-slate-900 p-8 rounded-[2rem] border border-slate-800 shadow-xl">
+                    <h4 class="text-slate-500 font-black text-xs uppercase mb-6 tracking-widest text-center">Navigation Map</h4>
+                    <div id="nav-map" class="grid grid-cols-5 gap-3 max-h-[380px] overflow-y-auto pr-2 custom-scroll">
+                        </div>
+                    <button onclick="finishProcess()" class="w-full mt-10 bg-red-600 hover:bg-red-700 text-white font-black py-4 rounded-2xl shadow-xl transition-transform active:scale-95">
+                        SUBMIT FINAL
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="result-view" class="hidden flex-grow flex items-center justify-center p-4">
+        <div class="bg-slate-900 p-12 rounded-[3rem] border-2 border-emerald-500 max-w-4xl w-full text-center shadow-2xl">
+            <h2 class="text-5xl font-black text-white mb-4 uppercase">Grade Summary</h2>
+            <p id="final-user-info" class="text-emerald-500 font-bold mb-10 text-xl"></p>
+            
+            <div class="inline-block p-12 bg-emerald-500/10 rounded-full border-4 border-emerald-500 mb-10">
+                <span id="score-val" class="text-7xl font-black text-emerald-500">0/50</span>
+            </div>
+
+            <div id="review-scroll" class="text-left space-y-4 max-h-[400px] overflow-y-auto mt-8 border-t border-slate-800 pt-8 custom-scroll">
+                </div>
+        </div>
+    </div>
+
+    <footer class="bg-slate-950 p-10 border-t border-slate-900">
+        <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-10 items-center text-center md:text-left">
+            <div class="flex items-center gap-4 justify-center md:justify-start">
+                <div class="w-14 h-14 bg-red-500/10 rounded-2xl flex items-center justify-center text-red-500 text-2xl">
+                    <i class="fas fa-envelope"></i>
+                </div>
+                <div>
+                    <p class="text-xs font-black text-slate-500 uppercase">Email Support</p>
+                    <p class="text-white font-bold">bsaviourokon@gmail.com</p>
+                </div>
+            </div>
+
+            <div class="flex justify-center">
+                <a href="https://wa.me/2349127396493" target="_blank" class="bg-emerald-600 hover:bg-emerald-700 text-white px-8 py-4 rounded-2xl font-black flex items-center gap-4 transition-all hover:shadow-emerald-500/40 shadow-xl">
+                    <i class="fab fa-whatsapp text-3xl"></i>
+                    <span>CHAT ON WHATSAPP</span>
+                </a>
+            </div>
+
+            <div class="text-center md:text-right">
+                <p class="text-xs font-black text-slate-500 uppercase mb-2">Quick Links</p>
+                <a href="https://cbt.uniyo.edu.ng" class="text-emerald-500 underline font-bold hover:text-white transition">Official Registration Portal</a>
+                <p class="text-slate-600 text-[10px] mt-4 tracking-widest">© 2026 GST 311 SYSTEMS</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const questions = [
+            { q: "The term 'conflict' is derived from which Latin word?", a: ["Configere", "Confligere", "Conflictu", "Conflatio"], c: 1 },
+            { q: "Conflict can be intrapersonal and:", a: ["Intergroup", "Interpersonal", "Intragroup", "Organisational"], c: 1 },
+            { q: "Who defined conflict as 'opposition among social entities directed against one another'?", a: ["Coser", "Wright", "Galtung", "Forsyth"], c: 1 },
+            { q: "Which type of conflict occurs within an individual?", a: ["Interpersonal", "Intragroup", "Intrapersonal", "Intergroup"], c: 2 },
+            { q: "The Human Relations approach believes conflict is:", a: ["Inevitable", "Desirable", "Not inevitable", "Always destructive"], c: 2 },
+            { q: "The Pluralist approach believes conflict is:", a: ["Not inevitable", "Inevitable and desirable", "Always destructive", "Always resolvable"], c: 1 },
+            { q: "Cause of conflict from the organisational perspective:", a: ["Grudges", "Faulty communication", "Competition", "Perception"], c: 2 },
+            { q: "Ambiguity in responsibility can lead to:", a: ["Peace", "Conflict", "Cooperation", "Harmony"], c: 1 },
+            { q: "Conflict management means:", a: ["Eliminating conflict", "Handling dispute to reduce negatives", "Ignoring", "Escalating"], c: 1 },
+            { q: "Strategy involving ignoring and avoiding conflict:", a: ["Accommodation", "Competition", "Avoidance", "Collaboration"], c: 2 },
+            { q: "Meeting needs of parties in dispute is:", a: ["Avoidance", "Competition", "Accommodation", "Compromise"], c: 2 },
+            { q: "Seeking a middle course where parties concede:", a: ["Collaboration", "Competition", "Avoidance", "Compromise"], c: 3 },
+            { q: "Negative peace refers to:", a: ["Presence of justice", "Absence of direct violence", "Inner peace", "Ecology"], c: 1 },
+            { q: "Positive peace includes elements of negative peace and:", a: ["Absence of war", "Absence of unjust structures/justice", "Growth", "Stability"], c: 1 },
+            { q: "Security involving protection of computer networks:", a: ["National", "Physical", "Financial", "Cyber security"], c: 3 },
+            { q: "Violence (WHO): intentional use of force resulting in:", a: ["Injury only", "Death only", "Injury, death, harm", "Loss"], c: 2 },
+            { q: "Type of violence mentioned in material:", a: ["Physical", "Sexual", "Emotional", "All of the above"], c: 3 },
+            { q: "Presidential Amnesty Programme (Niger Delta) initiator:", a: ["Obasanjo", "Jonathan", "Yar'Adua", "Buhari"], c: 2 },
+            { q: "Language can be used as:", a: ["Repression instrument", "Unification tool", "Both A and B", "Neither"], c: 2 },
+            { q: "Sri Lanka 'Sinhala Only Act' example of:", a: ["Unity", "Language marginalisation conflict", "Immersion", "Peace agent"], c: 1 },
+            { q: "Negotiation is:", a: ["Third party imposition", "Back-and-forth communication", "Legal proceeding", "One-way"], c: 1 },
+            { q: "Negotiation that is aggressive/adversarial:", a: ["Collaborative", "Positional", "Integrative", "Facilitative"], c: 1 },
+            { q: "Mediation involves:", a: ["Third party imposing", "Neutral helping parties negotiate", "Judge", "No help"], c: 1 },
+            { q: "Arbitration difference:", a: ["Facilitator", "Renders a decision", "Voluntary", "Judge"], c: 1 },
+            { q: "Multi-Door Court (MDC) is:", a: ["Traditional", "Court-annexed ADR", "Arbitration", "Negotiation"], c: 1 },
+            { q: "Med-Arb stands for:", a: ["Mediation & Arbitration", "Medical Arbitrage", "Media Arbitrate", "None"], c: 0 },
+            { q: "New media refers to:", a: ["Radio", "Internet/Social media", "Print", "TV only"], c: 1 },
+            { q: "NOT a feature of new media:", a: ["Interconnectedness", "Accessibility", "One-way talk", "Interactivity"], c: 2 },
+            { q: "Peace journalism emphasizes:", a: ["Sensationalism", "Accuracy/Empathy/Fairness", "Fear", "War talk"], c: 1 },
+            { q: "Distributive negotiation also known as:", a: ["Integrative", "Positional/Competitive", "Collaborative", "None"], c: 1 },
+            { q: "BATNA stands for:", a: ["Best Alternative to Negotiated Agreement", "Basic Alternative", "Best Accord", "None"], c: 0 },
+            { q: "Integrative negotiation focus:", a: ["Claiming value", "Creating value", "Zero-sum", "Win-lose"], c: 1 },
+            { q: "A refugee is someone with:", a: ["Economic need", "Well-founded fear of persecution", "Local move", "Jobs"], c: 1 },
+            { q: "IDPs differ from refugees because:", a: ["Crossed borders", "Not crossed international borders", "Safe", "In houses"], c: 1 },
+            { q: "NGOs in post-conflict play roles in:", a: ["Relief", "Advocacy", "Livelihood", "All of the above"], c: 3 },
+            { q: "OECD-DAC criteria include:", a: ["Relevance, Efficiency, Impact, etc", "Speed", "Popularity", "None"], c: 0 },
+            { q: "Facilitative mediation aims at:", a: ["Legal advice", "Improving communication", "Imposing", "Speed"], c: 1 },
+            { q: "Transformative mediation focus:", a: ["Empowerment/Recognition", "Money", "Settlements", "Court"], c: 0 },
+            { q: "Evaluative mediation involves:", a: ["Facilitating only", "Assessments of positions", "No opinion", "Love"], c: 1 },
+            { q: "Niger Delta region area:", a: ["50k sq km", "112k sq km", "200k sq km", "75k sq km"], c: 1 },
+            { q: "Oil discovery in Oloibiri was in:", a: ["1950", "1956", "1960", "1965"], c: 1 },
+            { q: "A challenge of Amnesty Programme:", a: ["Funding", "Corruption", "Few people", "Growth"], c: 1 },
+            { q: "Dialogue goal:", a: ["Win", "Mutual understanding", "Force", "Avoid talk"], c: 1 },
+            { q: "Conciliation involves:", a: ["Imposing", "Facilitating/Exploring solutions", "Direct negotiation", "Judge"], c: 1 },
+            { q: "New York Convention relates to:", a: ["Climate", "Arbitral awards enforcement", "Human rights", "War"], c: 1 },
+            { q: "Institutional peace:", a: ["Spiritual", "Relationships with Govt/Org", "Absence of war", "Ecology"], c: 1 },
+            { q: "Cause of violence:", a: ["Media violence", "Lack of resources", "Poor institutions", "All of the above"], c: 3 },
+            { q: "Non-refoulement is:", a: ["Education", "Protection from forced return to danger", "Jobs", "Speech"], c: 1 },
+            { q: "Peace building strategy:", a: ["Dialogue", "Disarmament", "Community talk", "All of the above"], c: 3 },
+            { q: "Conflict resolution goal:", a: ["Winners", "Address root causes/Restore peace", "Prolong", "Avoid talk"], c: 1 }
+        ];
+
+        let index = 0;
+        let selections = new Array(questions.length).fill(null);
+        let timer = 20 * 60;
+        let clockInterval;
+
+        function startExam() {
+            const nameInput = document.getElementById('user-fullname').value;
+            const regInput = document.getElementById('user-reg').value;
+            if(!nameInput || !regInput) return alert("Fill in your details!");
+            
+            document.getElementById('login-view').classList.add('hidden');
+            document.getElementById('exam-view').classList.remove('hidden');
+            document.getElementById('display-name').innerText = nameInput;
+            document.getElementById('display-reg').innerText = regInput;
+            
+            loadQuestion();
+            drawGrid();
+            clockInterval = setInterval(updateClock, 1000);
+        }
+
+        function loadQuestion() {
+            const q = questions[index];
+            document.getElementById('q-number').innerText = index + 1;
+            document.getElementById('q-content').innerText = q.q;
+            
+            const area = document.getElementById('options-area');
+            area.innerHTML = q.a.map((opt, i) => `
+                <button onclick="handleSelect(${i})" class="opt-btn p-6 rounded-3xl text-left flex items-center gap-5 ${selections[index] === i ? 'opt-active' : ''}">
+                    <span class="w-12 h-12 flex items-center justify-center rounded-2xl border border-slate-700 font-black ${selections[index] === i ? 'bg-white text-emerald-900' : 'text-emerald-500 bg-emerald-500/5'}">${String.fromCharCode(65+i)}</span>
+                    <span class="text-xl">${opt}</span>
+                </button>
+            `).join('');
+        }
+
+        function handleSelect(i) {
+            selections[index] = i;
+            loadQuestion();
+            drawGrid();
+        }
+
+        function drawGrid() {
+            const grid = document.getElementById('nav-map');
+            grid.innerHTML = questions.map((_, i) => `
+                <button onclick="jumpTo(${i})" class="h-14 w-full rounded-2xl font-bold border-2 transition-all 
+                ${index === i ? 'status-now' : ''} 
+                ${selections[i] !== null ? 'status-done' : 'bg-slate-800 border-slate-700 text-slate-500'}">
+                    ${i + 1}
+                </button>
+            `).join('');
+        }
+
+        function jumpTo(i) { index = i; loadQuestion(); drawGrid(); }
+        function moveNext() { if(index < 49) jumpTo(index + 1); }
+        function movePrev() { if(index > 0) jumpTo(index - 1); }
+
+        function updateClock() {
+            let m = Math.floor(timer / 60);
+            let s = timer % 60;
+            document.getElementById('timer-clock').innerText = `${m.toString().padStart(2,'0')}:${s.toString().padStart(2,'0')}`;
+            if(timer <= 0) finalize();
+            timer--;
+        }
+
+        function finishProcess() {
+            if(confirm("Submit your answers now?")) finalize();
+        }
+
+        function finalize() {
+            clearInterval(clockInterval);
+            let score = 0;
+            let reviewHtml = "";
+            questions.forEach((q, i) => {
+                const correct = selections[i] === q.c;
+                if(correct) score++;
+                reviewHtml += `
+                    <div class="p-6 bg-slate-800 rounded-3xl border-l-8 ${correct ? 'border-emerald-500' : 'border-red-500'} shadow-xl">
+                        <p class="font-bold text-white mb-2">${i+1}. ${q.q}</p>
+                        <p class="text-sm font-bold text-emerald-500">CORRECT: ${q.a[q.c]}</p>
+                        <p class="text-xs text-slate-500">YOUR ANSWER: ${selections[i] !== null ? q.a[selections[i]] : 'NOT ANSWERED'}</p>
+                    </div>`;
+            });
+            document.getElementById('exam-view').classList.add('hidden');
+            document.getElementById('result-view').classList.remove('hidden');
+            document.getElementById('score-val').innerText = `${score}/50`;
+            document.getElementById('final-user-info').innerText = document.getElementById('user-fullname').value + " • " + document.getElementById('user-reg').value;
+            document.getElementById('review-scroll').innerHTML = reviewHtml;
+        }
+    </script>
+</body>
+</html>
